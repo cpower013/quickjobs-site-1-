@@ -1,0 +1,262 @@
+/* Simple, clean styles for LocalJobs prototype */
+
+:root{
+  --bg:#f7fafc; --card:#ffffff; --muted:#6b7280; --brand:#0f172a; --accent:#2563eb;
+  --success:#16a34a; --radius:10px; --shadow: 0 6px 20px rgba(2,6,23,0.08);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--brand)}
+a{color:var(--accent);text-decoration:none}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+
+/* Header */
+.site-header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#fff;box-shadow:var(--shadow)}
+.site-header .logo{font-weight:700;font-size:18px}
+.site-header nav a{margin-left:12px}
+
+/* Layout */
+.container{max-width:1100px;margin:22px auto;padding:0 16px}
+.card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+
+/* Hero / home */
+.hero{display:flex;flex-direction:column;gap:12px}
+.home-grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:900px){ .home-grid{grid-template-columns:1fr 380px} }
+
+/* Buttons */
+.btn{display:inline-block;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-outline{background:transparent;border:1px solid #e6e9ef;padding:9px 12px}
+
+/* Forms */
+input[type=text],input[type=email],input[type=password],input[type=number],select,textarea{
+  width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ef;margin:6px 0;font-size:15px;
+}
+textarea{min-height:100px}
+.row{display:flex;gap:8px}
+.row input,.row select{flex:1}
+
+/* Jobs list */
+.jobs-list{display:grid;gap:12px;margin-top:12px}
+.job-card{border-radius:8px;padding:12px;border:1px solid #eef2ff;background:#fff;display:flex;justify-content:space-between;align-items:center}
+.job-meta{color:var(--muted);font-size:13px}
+
+/* Empty */
+.empty{padding:18px;text-align:center;color:var(--muted);border-radius:8px;border:1px dashed #e6edf9;margin-top:12px}
+
+/* Modals */
+.modal{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-card{background:#fff;border-radius:10px;padding:18px;max-width:560px;width:100%;position:relative}
+.modal-close{position:absolute;right:12px;top:8px;border:none;background:transparent;font-size:20px;cursor:pointer}
+
+/* Footer */
+.site-footer{text-align:center;padding:18px;margin-top:20px;color:var(--muted);font-size:14px}
+
+/* QR */
+.qr-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:8px}
+.qr-wrap img{width:220px;height:220px;border-radius:10px;border:1px solid #e9eef9}
+
+/* Small screens */
+@media(max-width:520px){
+  .row{flex-direction:column}
+}
+/* Base styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #EDF2F4;
+  color: #2B2D42;
+}
+
+/* Header */
+header {
+  background-color: #2B2D42;
+  padding: 20px;
+  color: #EDF2F4;
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+  font-size: 2em;
+}
+nav {
+  margin-top: 10px;
+}
+nav a {
+  color: #EDF2F4;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: #8D99AE;
+}
+
+/* Main content */
+main {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+h2 {
+  color: #2B2D42;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #8D99AE;
+  padding-bottom: 5px;
+}
+p {
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Cards (used for jobs, owners, etc.) */
+.card {
+  background: #EDF2F4;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #8D99AE;
+  margin: 15px 0;
+}
+.card h3 {
+  margin-top: 0;
+  color: #2B2D42;
+}
+
+/* Forms */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+label {
+  font-weight: bold;
+  color: #2B2D42;
+}
+input, textarea, select, button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #8D99AE;
+  font-size: 1em;
+}
+button {
+  background-color: #2B2D42;
+  color: #EDF2F4;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+button:hover {
+  background-color: #8D99AE;
+  color: #2B2D42;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  background-color: #2B2D42;
+  color: #EDF2F4;
+  padding: 15px;
+  margin-top: 30px;
+}
+h2 {
+  color: #1A535C;        /* teal/green-blue for main headings */
+  margin-bottom: 10px;
+  border-bottom: 2px solid #2B2D42; /* keep strong contrast */
+  padding-bottom: 5px;
+}
+
+h3 {
+  color: #1A535C;        /* teal for sub-headings too */
+}
+/* General Page */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #EDF2F4; /* light background */
+  color: #2B2D42;           /* dark navy text */
+  margin: 0;
+  padding: 0;
+}
+
+/* Header + Footer */
+header, footer {
+  background-color: #2B2D42; /* dark navy */
+  color: #EDF2F4;           /* light text */
+  padding: 15px;
+  text-align: center;
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: #1A535C; /* teal headings */
+}
+
+/* Buttons */
+button, .btn {
+  background-color: #8D99AE; /* soft grey-blue */
+  color: #EDF2F4;           /* white text */
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover, .btn:hover {
+  background-color: #1A535C; /* teal hover */
+}
+
+/* Job Cards */
+.job-card {
+  border: 1px solid #8D99AE; /* grey-blue border */
+  background: #EDF2F4;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 8px;
+}
+.job-card h3 {
+  color: #1A535C;
+}
+.founders-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.founder {
+  text-align: center;
+  max-width: 600px;
+}
+
+.founder-photo {
+  max-width: 300px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  border: 3px solid #1A535C;
+}
+.founders-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.founder-photo {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 3px solid #1A535C;
+}
+
+.founder {
+  max-width: 600px;
+  margin-bottom: 20px;
+}

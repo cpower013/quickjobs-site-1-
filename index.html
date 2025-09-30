@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>QuickTask— Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">Quicktask</a>
+    <nav>
+      <a href="jobs.html">Jobs</a>
+      <a href="login.html" id="nav-login">Log in</a>
+      <a href="signup.html" id="nav-signup">Sign up</a>
+      <span id="nav-user" class="muted" style="display:none"></span>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero card">
+      <h1>Find help around the house — fast</h1>
+      <p class="muted">Small jobs: lawn mowing, sink fitting, rubbish removal, cleaning, tyre repair, fencing and more.</p>
+
+      <div class="home-grid">
+        <div>
+          <h3>Get started</h3>
+          <ul>
+            <li>Browse available jobs on the Jobs page</li>
+            <li>Sign up and post a job or apply to help</li>
+            <li>Payments & identity checks are outside this prototype</li>
+          </ul>
+          <div style="margin-top:12px">
+            <a class="btn btn-primary" href="jobs.html">Browse Jobs</a>
+            <a class="btn btn-outline" href="signup.html">Sign up</a>
+          </div>
+        </div>
+
+        <div>
+          <h3>Sign up with your phone</h3>
+          <p class="muted">Scan this QR code to open the sign up page on your phone (or click below).</p>
+
+          <!-- QR code image generated via Google Chart API linking to signup page -->
+          <div class="qr-wrap">
+            <img alt="QR code to sign up" src="https://chart.googleapis.com/chart?chs=240x240&cht=qr&chl=https://example.com/signup.html&choe=UTF-8" id="qrImage">
+            <div class="muted small">Or <a href="signup.html">click here to sign up</a></div>
+          </div>
+
+          <p class="muted small">Note: replace the QR URL with your site URL before publishing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:16px">
+      <h3>How it works (prototype)</h3>
+      <ol class="muted">
+        <li>Create an account (stored in your browser for this demo).</li>
+        <li>Post jobs (title, category, price, location, description).</li>
+        <li>Anyone can apply — this prototype only simulates sending a message.</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">Quicktask prototype — no payment or identity verification. &copy; 2025</footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Set the QR to point to a local path (useful when testing locally)
+    document.getElementById('qrImage').src =
+      'https://chart.googleapis.com/chart?chs=240x240&cht=qr&chl=' + encodeURIComponent(window.location.origin + '/signup.html') + '&choe=UTF-8';
+
+    // Update header login state
+    document.addEventListener('DOMContentLoaded', () => {
+      AppUI.updateHeader();
+    });
+  </script>
+</body>
+</html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quicktask — Jobs</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">Quicktask</a>
+    <nav>
+      <a href="jobs.html">Jobs</a>
+      <a href="login.html" id="nav-login">Log in</a>
+      <a href="signup.html" id="nav-signup">Sign up</a>
+      <span id="nav-user" class="muted" style="display:none"></span>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="jobs-top">
+        <h2>Available jobs</h2>
+
+        <div class="filters">
+          <input id="searchQ" placeholder="Search title or description">
+          <select id="filterCategory">
+            <option value="All">All categories</option>
+            <option>Yard & Garden</option>
+            <option>Plumbing</option>
+            <option>Cleaning</option>
+            <option>Handyman</option>
+            <option>Waste & Removal</option>
+            <option>Auto</option>
+            <option>Other</option>
+          </select>
+          <select id="sortBy">
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="price_asc">Price: Low → High</option>
+            <option value="price_desc">Price: High → Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="jobsContainer" class="jobs-list"></div>
+
+      <div id="noJobs" class="empty" style="display:none">No jobs yet — sign in and post the first job.</div>
+    </section>
+
+    <section class="card" style="margin-top:16px">
+      <h3>Post a job</h3>
+      <p class="muted">You must be signed in to post a job.</p>
+
+      <form id="postForm" class="post-form">
+        <div class="row">
+          <input id="postTitle" placeholder="Title (e.g. Mow front & back lawn)" required>
+          <input id="postPrice" placeholder="Price (€)" type="number">
+        </div>
+
+        <div class="row">
+          <select id="postCategory">
+            <option>Yard & Garden</option>
+            <option>Plumbing</option>
+            <option>Cleaning</option>
+            <option>Handyman</option>
+            <option>Waste & Removal</option>
+            <option>Auto</option>
+            <option>Other</option>
+          </select>
+          <input id="postLocation" placeholder="Location (city / area)">
+        </div>
+
+        <textarea id="postDescription" placeholder="Describe the job, expected time, tools required..." required></textarea>
+
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn-primary" type="submit">Post job</button>
+          <div id="postNotice" class="muted small">Not signed in</div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Job details / apply modal (hidden) -->
+  <div id="modal" class="modal" style="display:none">
+    <div class="modal-card">
+      <button id="closeModal" class="modal-close">&times;</button>
+      <h3 id="modalTitle"></h3>
+      <div class="muted" id="modalMeta"></div>
+      <p id="modalDesc"></p>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button id="openApply" class="btn btn-primary">Apply</button>
+        <button id="shareJob" class="btn btn-outline">Copy link</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Apply modal -->
+  <div id="applyModal" class="modal" style="display:none">
+    <div class="modal-card">
+      <button id="closeApply" class="modal-close">&times;</button>
+      <h3>Apply</h3>
+      <form id="applyForm">
+        <textarea id="applyMessage" placeholder="Short message to the job poster" required></textarea>
+        <input id="applyContact" placeholder="Phone or email (optional)">
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer">Quicktask prototype — &copy; 2025</footer>
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      AppUI.initJobsPage();
+    });
+  </script>
+</body>
+</html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quicktask — Sign up</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">Quicktask</a>
+    <nav>
+      <a href="jobs.html">Jobs</a>
+      <a href="login.html" id="nav-login">Log in</a>
+      <a href="signup.html" id="nav-signup">Sign up</a>
+      <span id="nav-user" class="muted" style="display:none"></span>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card" style="max-width:520px;margin:auto">
+      <h2>Create an account</h2>
+      <form id="signupForm">
+        <input id="suName" placeholder="Your name" required>
+        <input id="suEmail" placeholder="Email" type="email" required>
+        <input id="suPassword" placeholder="Password" type="password" required>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn-primary" type="submit">Sign up</button>
+          <a class="muted" href="login.html">Already have an account?</a>
+        </div>
+        <div id="suMsg" class="muted small"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">Quicktask prototype — &copy; 2025</footer>
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      AppUI.initSignupPage();
+    });
+  </script>
+</body>
+</html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quicktask — Log in</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">Quickask</a>
+    <nav>
+      <a href="jobs.html">Jobs</a>
+      <a href="login.html" id="nav-login">Log in</a>
+      <a href="signup.html" id="nav-signup">Sign up</a>
+      <span id="nav-user" class="muted" style="display:none"></span>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card" style="max-width:520px;margin:auto">
+      <h2>Log in</h2>
+      <form id="loginForm">
+        <input id="liEmail" placeholder="Email" type="email" required>
+        <input id="liPassword" placeholder="Password" type="password" required>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn-primary" type="submit">Log in</button>
+          <a class="muted" href="signup.html">Create account</a>
+        </div>
+        <div id="liMsg" class="muted small"></div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">Quicktask prototype — &copy; 2025</footer>
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      AppUI.initLoginPage();
+    });
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - QuickTask Ireland</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    header {
+      background-color: #007BFF;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+    nav {
+      margin-top: 10px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #007BFF;
+      margin-bottom: 10px;
+    }
+    .owners {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .owner {
+      flex: 1 1 45%;
+      background: #f1f1f1;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    footer {
+      text-align: center;
+      background-color: #343a40;
+      color: white;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>About QuickTask Ireland</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="jobs.html">Jobs</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+      <a href="about.html">About Us</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Who We Are</h2>
+    <p>
+      QuickTask Ireland is a platform built to connect people across Ireland who need 
+      short-term jobs completed — whether big or small — with skilled or unskilled workers 
+      who are ready to help. From changing sinks to fixing tyres, cutting grass to 
+      professional fence installation, our site gives people a place to find help quickly 
+      and reliably.
+    </p>
+
+    <h2>What We Offer</h2>
+    <p>
+      Our website allows anyone to post jobs on short notice. Some tasks may require 
+      specific qualifications and experience, while others are simple jobs that 
+      anyone can do. This flexibility means that people with a wide variety of 
+      skills — from professionals to casual helpers — can find opportunities and 
+      connect with those who need work done quickly.
+    </p>
+
+    <h2>Meet the Founders</h2>
+    <div class="owners">
+      <div class="owner">
+        <h3>Cianan Power</h3>
+        <p>
+          Cianan is one of the driving forces behind QuickTask Ireland. With a strong 
+          vision to create a trusted online space where people can both find work 
+          and get help with everyday tasks, Cianan focuses on innovation, accessibility, 
+          and user experience.
+        </p>
+      </div>
+      <div class="owner">
+        <h3>Adam Cooney</h3>
+        <p>
+          Adam brings creativity and commitment to the team. He is passionate about 
+          building a platform that works for everyone — from homeowners needing 
+          quick assistance to professionals looking to expand their client base.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 QuickTask Ireland. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickTask Ireland - Home</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome to QuickTask Ireland</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="jobs.html">Jobs</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+      <a href="about.html">About Us</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Find Help Fast</h2>
+    <p>Post and find short-term jobs across Ireland. From skilled trades to simple tasks, QuickTask Ireland connects people who need jobs done with those who can do them.</p>
+
+    <div class="card">
+      <h3>Sign Up Instantly</h3>
+      <p>Scan the QR code below to sign up:</p>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://your-signup-link.com" alt="QR Code to Sign Up">
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 QuickTask Ireland. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <section class="founders">
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - QuickJobs Ireland</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Create an Account</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="jobs.html">Jobs</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2>Sign Up</h2>
+      <form>
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit" class="btn">Create Account</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 QuickJobs Ireland. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
